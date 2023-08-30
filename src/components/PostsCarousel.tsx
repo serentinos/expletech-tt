@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { FC } from "react"
+import { Post } from "../types/post"
 
-const PostsCarousel = () => {
-  const [posts, setPosts] = useState([]);
-  
+interface Props {
+  posts: Post[]
+}
+
+const PostsCarousel:FC<Props> = ({ posts }) => {
   return (
     <div>PostsCarousel</div>
   )

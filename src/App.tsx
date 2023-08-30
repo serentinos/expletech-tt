@@ -1,9 +1,9 @@
-import PostsCarousel from "./components/PostsCarousel"
+import Posts from "./components/Posts"
 
 function App() {
   return (
     <>
-     <PostsCarousel />
+     <Posts />
     </>
   )
 }

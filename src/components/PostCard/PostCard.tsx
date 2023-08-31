@@ -3,40 +3,31 @@ import { PostWithUser } from "../../types/postWithUser";
 import { Card, CardActions, CardContent, Collapse, Typography } from '@mui/material';
 import LoadPostComments from "../LoadPostComments/LoadPostComments";
 import PostCardAuthor from "../PostCardAuthor/PostCardAuthor";
-import { postsApi } from "../../api/posts";
 import PostComments from "../PostComments/PostComments";
-import { Comment } from "../../types/comment";
+
+import { postsApi } from "../../features/post/post";
 
 interface Props {
   post: PostWithUser;
 }
 export const PostCard:FC<Props> = ({ post }) => {
   const { title, body, id } = post;
+  const [
+    triggerCommentLoading, 
+    { data, isLoading, isSuccess: isLoaded }
+  ] = postsApi.endpoints.getPostComments.useLazyQuery();
   const { name, email } = post.user;
-  const [isLoading, setIsLoading] = useState(false);
-  const [comments, setComments] = useState<Comment[]>([]);
   const [openCommentSection, setOpenCommentSection] = useState(false);
-  const isCommentsLoaded = comments.length > 0;
 
   const handleLoadComments = async () => {
-    if (isCommentsLoaded) {
+    if (isLoaded) {
       setOpenCommentSection(prev => !prev);
       
       return;
     }
     
-    setIsLoading(true);
-    
-    try {
-      const commentsFromServer = await postsApi.getPostComments(id);
-      setComments(commentsFromServer)
-      setOpenCommentSection(true);
-      
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+    await triggerCommentLoading(id);
+    setOpenCommentSection(true);
   };
   
   return (
@@ -64,13 +55,13 @@ export const PostCard:FC<Props> = ({ post }) => {
           <LoadPostComments
             handleLoadComments={handleLoadComments}
             isLoading={isLoading}
-            isCommentsLoaded={isCommentsLoaded && openCommentSection}
+            isCommentsLoaded={isLoaded && openCommentSection}
           />
         </CardActions>
 
         <Collapse in={openCommentSection}>
           <CardContent>
-            <PostComments comments={comments}/>
+            {data && <PostComments comments={data}/>}
           </CardContent>
         </Collapse>
       </Card>

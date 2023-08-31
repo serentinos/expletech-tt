@@ -29,7 +29,6 @@ export const PostsCarousel:FC<Props> = ({ posts }) => {
       responsive={responsive}
       itemClass={'react-multi-carousel-item'}
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      beforeChange={() => console.log('worked')}
     >
       {posts.map(post => (
         <PostCard

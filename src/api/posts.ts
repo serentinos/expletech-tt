@@ -21,7 +21,6 @@ const getAllPostsWithUsers = async () => {
     getAllPosts(),
     getAllUsers(),
   ])
-  console.log('worked');
 
   const preparedPosts = getPostsWithUsers(postsFromServer, usersFromServer);
 

@@ -11,7 +11,12 @@ interface Props {
 const PostComments:FC<Props> = ({ comments }) => {
   
   return (
-    <Box maxHeight={'300px'} overflow={'auto'}>
+    <Box 
+    sx={{
+      'maxHeight': '300px',
+      'overflow': 'auto'
+    }}
+    >
       {comments.map(comment => {
         const commentUserName = comment.email.split('@')[0];
 

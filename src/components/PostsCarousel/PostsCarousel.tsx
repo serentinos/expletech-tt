@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import { PostWithUser } from "../../types/postWithUser";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -24,9 +24,6 @@ const responsive = {
 };
 
 export const PostsCarousel:FC<Props> = ({ posts }) => {
-  const [openCommentSection, setOpenCommentSection] = useState(false);
-
-
   return (
     <Carousel
       responsive={responsive}

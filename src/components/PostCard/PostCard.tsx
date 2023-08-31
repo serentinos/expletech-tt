@@ -31,8 +31,7 @@ export const PostCard:FC<Props> = ({ post }) => {
       const commentsFromServer = await postsApi.getPostComments(id);
       setComments(commentsFromServer)
       setOpenCommentSection(true);
-
-
+      
     } catch (error) {
       console.log(error);
     } finally {

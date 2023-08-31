@@ -13,7 +13,7 @@ export const PostCommentItem:FC<Props> = ({ userName, comment }) => {
   
   return (
     <>
-     <Box pt={2} pb={2}>
+     <Box py={2}>
         <PostCardAuthor email={email} name={userName}/>
 
         <Typography variant="h6" >

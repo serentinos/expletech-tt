@@ -3,10 +3,12 @@ import { postsApi } from '../../api/posts';
 import { PostsCarousel } from '../PostsCarousel/PostsCarousel';
 import { PostWithUser } from '../../types/postWithUser';
 import { Container, Stack } from '@mui/material';
+import CreateNewPost from '../CreateNewPost/CreateNewPost';
 
 const Posts = () => {
   const [posts, setPosts] = useState<PostWithUser[]>([]);
   const [isError, setIsError] = useState<string>('');
+  const isPostsLoaded = posts.length > 0;
   console.log(posts);
 
   useEffect(() => {
@@ -25,13 +27,15 @@ const Posts = () => {
   
   return (
     <>
-      <Container >
+      <Container sx={{'position': 'relative'}}>
         <Stack
           sx={{'min-height': '100vh'}}
           justifyContent={'center'}
         >
-          {posts.length !== 0 && <PostsCarousel posts={posts} />}
+          {isPostsLoaded && <PostsCarousel posts={posts} />}
         </Stack>
+
+       {isPostsLoaded && <CreateNewPost />}
       </Container>
     </>
   )

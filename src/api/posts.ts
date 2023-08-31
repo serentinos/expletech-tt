@@ -1,4 +1,5 @@
 import { Comment } from "../types/comment";
+import { NewPost } from "../types/newPost";
 import { Post } from "../types/post";
 import { User } from "../types/user";
 import { client } from "../utils/fetchclient";
@@ -27,10 +28,15 @@ const getAllPostsWithUsers = async () => {
   return preparedPosts;
 }
 
+const postNewPost = async (body: NewPost) => {
+  return client.post<Post>('/posts', body);
+}
+
 
 export const postsApi = {
   getAllPosts,
   getPostComments,
   getAllUsers,
   getAllPostsWithUsers,
+  postNewPost,
 };

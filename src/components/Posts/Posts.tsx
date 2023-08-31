@@ -1,22 +1,27 @@
 import { PostsCarousel } from '../PostsCarousel/PostsCarousel';
 import { Container, Stack } from '@mui/material';
-import CreateNewPost from '../CreateNewPost/CreateNewPost';
+import { CreateNewPost } from '../CreateNewPost/CreateNewPost';
 import { useGetAllPostsQuery } from '../../features/post/post';
+import { Loader } from '../Loader';
 
-const Posts = () => {
+export const Posts = () => {
   const { data: posts } = useGetAllPostsQuery();
-  
+
   return (
     <>
       <Container sx={{'position': 'relative'}}>
-        <Stack
-          sx={{'min-height': '100vh'}}
-          justifyContent={'center'}
-        >
-          {posts && <PostsCarousel posts={posts} />}
-        </Stack>
+          <Stack
+            sx={{
+              'minHeight': '100vh',
+              'justifyContent': 'center',
+            }}
+          >
+            {posts
+            ? (<PostsCarousel posts={posts} />)
+            : (<Loader />)}
+          </Stack>
 
-       {posts && <CreateNewPost />}
+         {posts && <CreateNewPost />}
       </Container>
     </>
   )

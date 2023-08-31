@@ -1,4 +1,4 @@
-import { Box, Card, Divider, ListItem, Typography } from "@mui/material"
+import { Box, Divider, Typography } from "@mui/material"
 import { FC } from "react"
 import { PostCardAuthor } from "../PostCardAuthor"
 import { Comment } from "../../types/comment"

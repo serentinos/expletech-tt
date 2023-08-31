@@ -1,15 +1,20 @@
-import { Box, Fab, Zoom } from "@mui/material"
+import { Box, Fab, Modal, Zoom } from "@mui/material"
 import  AddIcon  from "@mui/icons-material/Add"
 import { useEffect, useState } from "react"
+import { NewPostForm } from "../NewPostForm";
 
-
-const CreateNewPost = ({ ...props }) => {
+export const CreateNewPost = ({ ...props }) => {
   const [ visible, setVisible ] = useState(false);
+  const [ modalOpen, setModalOpen ] = useState(false);
   const timeout = 800;
+
+  const handleOpen = () => setModalOpen(true)
+  const handleClose = () => setModalOpen(false)
 
   useEffect(() => {
     setTimeout(() => setVisible(true), timeout)
   }, [])
+
   
   return (
     <Box
@@ -23,10 +28,21 @@ const CreateNewPost = ({ ...props }) => {
       <Zoom
         in={visible}
       >
-        <Fab color="primary" aria-label="add">
+        <Fab
+          color="primary"
+          aria-label="add"
+          onClick={handleOpen}
+        >
           <AddIcon />
         </Fab>
       </Zoom>
+
+      <Modal
+        open={modalOpen}
+        onClose={handleClose}
+      >
+        <NewPostForm onClose={handleClose} />
+      </Modal>
     </Box>
   )
 }

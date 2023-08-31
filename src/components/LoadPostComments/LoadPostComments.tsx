@@ -7,7 +7,7 @@ interface Props {
   isCommentsLoaded: boolean,
 }
 
-const LoadPostComments:FC<Props> = ({
+export const LoadPostComments:FC<Props> = ({
     handleLoadComments,
     isLoading,
     isCommentsLoaded

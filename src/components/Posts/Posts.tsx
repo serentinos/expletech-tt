@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { postsApi } from '../api/posts';
-import { PostsCarousel } from './PostsCarousel';
-import { PostWithUser } from '../types/postWithUser';
-import { Container } from '@mui/material';
+import { postsApi } from '../../api/posts';
+import { PostsCarousel } from '../PostsCarousel/PostsCarousel';
+import { PostWithUser } from '../../types/postWithUser';
+import { Container, Stack } from '@mui/material';
 
 const Posts = () => {
   const [posts, setPosts] = useState<PostWithUser[]>([]);
@@ -26,7 +26,12 @@ const Posts = () => {
   return (
     <>
       <Container >
-        {posts.length !== 0 && <PostsCarousel posts={posts} />}
+        <Stack
+          sx={{'min-height': '100vh'}}
+          justifyContent={'center'}
+        >
+          {posts.length !== 0 && <PostsCarousel posts={posts} />}
+        </Stack>
       </Container>
     </>
   )

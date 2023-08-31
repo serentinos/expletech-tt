@@ -1,13 +1,16 @@
-import { FC } from "react"
-import { Post } from "../types/post"
+import { FC, useState } from "react"
+import PostCard from "./PostCard";
+import { PostWithUser } from "../types/postWithUser";
 
 interface Props {
-  posts: Post[]
+  posts: PostWithUser[]
 }
 
-const PostsCarousel:FC<Props> = ({ posts }) => {
+export const PostsCarousel:FC<Props> = ({ posts }) => {
+  const [ post ] = useState(posts[0]);
+  
   return (
-    <div>PostsCarousel</div>
+    <PostCard post={post} />
   )
 }
 

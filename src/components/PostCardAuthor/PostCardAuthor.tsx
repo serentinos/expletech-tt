@@ -1,14 +1,15 @@
 import { Stack, Avatar, Typography } from "@mui/material"
 import { getRandomColor } from "../../utils/getRandomAvatarColor"
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 interface Props {
   name: string,
   email: string,
 }
 
-const PostCardAuthor:FC<Props> = ({ name, email }) => {
+export const PostCardAuthor:FC<Props> = ({ name, email }) => {
   const avatarSymbols = name.slice(0, 2).toUpperCase();
+  const avatarBackgroundColor = useMemo(() => getRandomColor(), []);
   
   return (
     <Stack
@@ -17,7 +18,7 @@ const PostCardAuthor:FC<Props> = ({ name, email }) => {
     gap={1}
   >
     <Avatar
-      sx={{ bgcolor: getRandomColor() }}
+      sx={{ bgcolor: avatarBackgroundColor }}
     >{avatarSymbols}</Avatar>
 
     <Stack direction={"column"} >

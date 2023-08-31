@@ -1,15 +1,44 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { PostWithUser } from "../../types/postWithUser";
-import { Card, CardActions, CardContent, Typography } from '@mui/material';
-import PostComments from "../PostComments/PostComments";
+import { Card, CardActions, CardContent, Collapse, Typography } from '@mui/material';
+import LoadPostComments from "../LoadPostComments/LoadPostComments";
 import PostCardAuthor from "../PostCardAuthor/PostCardAuthor";
+import { postsApi } from "../../api/posts";
+import PostComments from "../PostComments/PostComments";
+import { Comment } from "../../types/comment";
 
 interface Props {
   post: PostWithUser;
 }
-const PostCard:FC<Props> = ({ post }) => {
-  const { title, body } = post;
+export const PostCard:FC<Props> = ({ post }) => {
+  const { title, body, id } = post;
   const { name, email } = post.user;
+  const [isLoading, setIsLoading] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [openCommentSection, setOpenCommentSection] = useState(false);
+  const isCommentsLoaded = comments.length > 0;
+
+  const handleLoadComments = async () => {
+    if (isCommentsLoaded) {
+      setOpenCommentSection(prev => !prev);
+      
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    try {
+      const commentsFromServer = await postsApi.getPostComments(id);
+      setComments(commentsFromServer)
+      setOpenCommentSection(true);
+
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   
   return (
     <>
@@ -33,8 +62,18 @@ const PostCard:FC<Props> = ({ post }) => {
         </CardContent>
         
         <CardActions>
-          <PostComments postId={post.id}/>
+          <LoadPostComments
+            handleLoadComments={handleLoadComments}
+            isLoading={isLoading}
+            isCommentsLoaded={isCommentsLoaded && openCommentSection}
+          />
         </CardActions>
+
+        <Collapse in={openCommentSection}>
+          <CardContent>
+            <PostComments comments={comments}/>
+          </CardContent>
+        </Collapse>
       </Card>
     </>
   )

@@ -24,15 +24,21 @@ const responsive = {
 };
 
 export const PostsCarousel:FC<Props> = ({ posts }) => {
-  const [ mockPost ] = useState(posts[0]);
-  
+  const [openCommentSection, setOpenCommentSection] = useState(false);
+
+
   return (
     <Carousel
       responsive={responsive}
       itemClass={'react-multi-carousel-item'}
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      beforeChange={() => console.log('worked')}
     >
       {posts.map(post => (
-        <PostCard key={post.id} post={post} />
+        <PostCard
+          key={post.id}
+          post={post}
+        />
       ))}
     </Carousel>
   )

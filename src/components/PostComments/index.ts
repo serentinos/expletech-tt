@@ -1,1 +1,1 @@
-export * from './PostComments';
+export * from '.';

@@ -1,3 +1,4 @@
+import { Comment } from "../types/comment";
 import { Post } from "../types/post";
 import { User } from "../types/user";
 import { client } from "../utils/fetchclient";

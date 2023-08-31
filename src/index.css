@@ -4,6 +4,7 @@ body {
   min-height: 100vh;
 }
 
-/* .react-multi-carousel-track{
-  gap:8px
-} */
+.react-multi-carousel-item {
+  display: flex;
+  align-items: center;
+}
